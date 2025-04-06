@@ -6,6 +6,9 @@ import { useIsMobile } from '../hooks/use-mobile';
 import Header from '../components/Header';
 import MenuButton from '../components/MenuButton';
 
+// Definindo a variável base de caminho de forma dinâmica
+const basePath = import.meta.env.DEV ? "/" : import.meta.env.BASE_URL;
+
 const MoreMoments: React.FC = () => {
   const [isMusicPlaying, setIsMusicPlaying] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -15,7 +18,7 @@ const MoreMoments: React.FC = () => {
     document.title = "Nosso cantinho - Mais de nós";
     
     // Initialize audio element
-    audioRef.current = new Audio('/music/background-music.mp3');
+    audioRef.current = new Audio(`${basePath}music/background-music.mp3`);
     audioRef.current.loop = true;
     
     return () => {
@@ -42,28 +45,30 @@ const MoreMoments: React.FC = () => {
     }
   };
 
-  const backgroundImage = isMobile ? 'url("/images/cottage_mobile.png")' : 'url("/images/cottage_main.png")';
+  const backgroundImage = isMobile 
+    ? `url("${basePath}images/cottage_mobile.png")` 
+    : `url("${basePath}images/cottage_main.png")`;
   
   const moreMenuItems = [
     {
       icon: MessageCircleWarning,
       label: "Sequestro",
-      url: "/more_moments/Sequestro.html"
+      url: `${basePath}more_moments/Sequestro.html`
     },
     {
       icon: BookHeart,
       label: "Poema Animado",
-      url: "/more_moments/Poema Animado.html"
+      url: `${basePath}more_moments/Poema Animado.html`
     },
     {
       icon: Mail,
       label: "Carta de Aniversário Laís (2025)",
-      url: "/more_moments/Carta de Aniversário para Laís (2025).html"
+      url: `${basePath}more_moments/Carta de Aniversário para Laís (2025).html`
     },
     {
       icon: FileVideo,
       label: "Video de Aniversário Ramon (2025)",
-      url: "/more_moments/Video de Aniversário para Ramon (2025).mp4"
+      url: `${basePath}more_moments/Video de Aniversário para Ramon (2025).mp4`
     }
   ];
 

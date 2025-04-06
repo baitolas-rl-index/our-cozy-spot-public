@@ -4,6 +4,9 @@ import Header from '../components/Header';
 import MainMenu from '../components/MainMenu';
 import { useIsMobile } from '../hooks/use-mobile';
 
+// Definindo a variável base de caminho de forma dinâmica
+const basePath = import.meta.env.DEV ? "/" : import.meta.env.BASE_URL;
+
 const Index: React.FC = () => {
   const [isMusicPlaying, setIsMusicPlaying] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -13,7 +16,7 @@ const Index: React.FC = () => {
     document.title = "Nosso cantinho";
     
     // Initialize audio element
-    audioRef.current = new Audio('/music/background-music.mp3');
+    audioRef.current = new Audio(`${basePath}music/background-music.mp3`);
     audioRef.current.loop = true;
     
     return () => {
@@ -40,7 +43,9 @@ const Index: React.FC = () => {
     }
   };
 
-  const backgroundImage = isMobile ? 'url("/images/cottage_mobile.png")' : 'url("/images/cottage_main.png")';
+  const backgroundImage = isMobile 
+    ? `url("${basePath}images/cottage_mobile.png")` 
+    : `url("${basePath}images/cottage_main.png")`;
 
   return (
     <div 
