@@ -9,12 +9,14 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+const basename = import.meta.env.MODE === "production" ? "/our-cozy-spot-public" : "/";
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="/our-cozy-spot-public">
+      <BrowserRouter basename={basename}>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/mais-momentos" element={<MoreMoments />} />
