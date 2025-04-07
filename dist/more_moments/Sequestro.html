@@ -1,41 +1,99 @@
-
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Álbum de Fotos</title>
-  <style>
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: #f5f5f5;
-      text-align: center;
-      padding: 50px 20px;
-    }
-    h1 {
-      color: #8B4513;
-      font-family: 'Playfair Display', serif;
-    }
-    p {
-      font-size: 18px;
-      line-height: 1.6;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    a {
-      display: inline-block;
-      margin-top: 40px;
-      padding: 10px 20px;
-      background-color: #A0522D;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-  </style>
+    <meta charset="UTF-8"> <!-- Adiciona a codificação de caracteres UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background-color: #FF69B4;
+            height: 100vh;
+            text-align: center; 
+        }
+        img {
+            max-width: 300px;
+            max-height: 300px;
+            object-fit: contain;
+        }
+        .title {
+            font-size: 28px; 
+            margin-bottom: 20px;
+        }
+        .struck-text {
+            text-decoration: line-through;
+        }
+        button, p {
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Álbum de Fotos</h1>
-  <p>Esta é uma página de teste para o álbum de fotos que será desenvolvido futuramente.</p>
-  <a href="/">Voltar para o início</a>
+
+<div class="title">Hello <span class="struck-text">World</span> Kitty</div>
+
+<script>
+// Objeto para armazenar as URLs das imagens
+const imageURLs = {
+    initial: "https://imgur.com/MVFhOQR.png",
+    sim: "https://imgur.com/ADpNhd2.png", 
+    nao: "https://imgur.com/idZAEcq.png" 
+};
+
+// Função para criar o conteúdo da página
+function createContent(choice) {
+    // Limpa o conteúdo atual da página, exceto o título
+    document.body.innerHTML = '<div class="title">Hello, <span class="struck-text">World</span> Kitty!</div>';
+
+    // Cria novos elementos
+    const container = document.createElement('div');
+    const img = document.createElement('img');
+    img.src = imageURLs[choice] || imageURLs.initial;
+    img.alt = 'Imagem Dinâmica';
+
+    const p = document.createElement('p');
+    // Altera o texto baseado na escolha
+    if (choice === 'sim') {
+        p.textContent = 'Venha bebê, tem amor, carinho e pizza de Kit Kat pra você <3';
+    } else if (choice === 'nao') {
+        p.textContent = 'Obviamente você não tem escolha, isso é um sequestro RELÂMPAGO! KaTcHiAu!';
+    } else {
+        p.textContent = 'Eai gatinha, me deixa te sequestrar? <3';
+    }
+
+    container.appendChild(img);
+    container.appendChild(p);
+
+    if (choice === 'initial') {
+        const btnSim = document.createElement('button');
+        btnSim.textContent = 'Sim';
+        btnSim.onclick = () => createContent('sim');
+
+        const btnNao = document.createElement('button');
+        btnNao.textContent = 'Não';
+        btnNao.onclick = () => createContent('nao');
+
+        container.appendChild(btnSim);
+        container.appendChild(btnNao);
+    } else {
+        const btnVoltar = document.createElement('button');
+        btnVoltar.textContent = 'Voltar';
+        btnVoltar.onclick = () => createContent('initial');
+
+        container.appendChild(btnVoltar);
+    }
+
+    document.body.appendChild(container); 
+}
+
+// Inicializa a página com o conteúdo inicial
+createContent('initial');
+</script>
+
 </body>
 </html>
